@@ -29,11 +29,16 @@ ssh-keygen -t ed25519
 Since Windows lacks the native `ssh-copy-id` utility, we use a built-in command.
 
 1. **In the same console**, type `powershell` and press Enter.
-2. Run the following command, replacing `your_ip` with the actual IP address of your VPS:
+2. **[Crucial for new servers]** If you have a brand-new VPS, the `.ssh` folder might not exist yet. Create it first by running this command (replace `your_ip` with your server's IP):
+```powershell
+ssh root@your_ip "mkdir -p .ssh"
+```
+*(Enter your server password when prompted).*
+3. Now, copy your key to the server. Run the following command strictly as **a single line**:
 ```powershell
 type $env:USERPROFILE\.ssh\id_ed25519.pub | ssh root@your_ip "cat >> .ssh/authorized_keys"
 ```
-3. Enter your server password one last time. Your laptop and VPS are now securely linked.
+4. Enter your server password one last time. Your laptop and VPS are now securely linked.
 
 ### Step 3. Create an auto-start `.bat` file
 1. Create a standard text document on your desktop.
